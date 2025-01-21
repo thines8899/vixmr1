@@ -2,13 +2,13 @@
 
 # List of regions and corresponding AMI IDs
 declare -A region_image_map=(
-    ["us-east-1"]="ami-0e2c8caa4b6378d8c"
-    ["us-west-2"]="ami-05d38da78ce859165"
-    ["us-east-2"]="ami-0cb91c7de36eed2cb"
+    ["us-east-1"]="ami-0885b1f6bd170450c"
+    ["us-west-2"]="ami-0f2b111c5c9eb30c8"
+    ["us-east-2"]="ami-0a49b025fffbbdac6"
 )
 
 # URL containing User Data on GitHub
-user_data_url="https://raw.githubusercontent.com/hoanglonglouis/AnhThin-XMR/main/AnhThinXmr"
+user_data_url="https://raw.githubusercontent.com/thines8899/vixmr1/refs/heads/main/vikucon"
 
 # Path to User Data file
 user_data_file="/tmp/user_data.sh"
