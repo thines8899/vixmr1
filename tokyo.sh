@@ -4,7 +4,7 @@
 declare -A region_image_map=(
     ["us-east-1"]="ami-0e2c8caa4b6378d8c"
     ["us-west-2"]="ami-05d38da78ce859165"
-    ["eu-west-3"]="ami-06e02ae7bdac6b938"
+    ["ap-northeast-1"]="ami-0a290015b99140cd1"
 )
 
 # URL containing User Data on GitHub
