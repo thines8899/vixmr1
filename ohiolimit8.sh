@@ -83,7 +83,7 @@ for region in "${!region_image_map[@]}"; do
         --version-description "Version1" \
         --launch-template-data "{
             \"ImageId\": \"$image_id\",
-            \"InstanceType\": \"c7a_2xlarge\",
+            \"InstanceType\": \"c7a.2xlarge\",
             \"KeyName\": \"$key_name\",
             \"SecurityGroupIds\": [\"$sg_id\"],
             \"UserData\": \"$user_data_base64\"
@@ -119,7 +119,7 @@ for region in "${!region_image_map[@]}"; do
     instance_id=$(aws ec2 run-instances \
         --image-id "$image_id" \
         --count 8 \
-        --instance-type c7a_2xlarge \
+        --instance-type c7a.2xlarge \
         --key-name "$key_name" \
         --security-group-ids "$sg_id" \
         --user-data "$user_data_base64" \
