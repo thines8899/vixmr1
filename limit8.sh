@@ -8,7 +8,7 @@ declare -A region_image_map=(
 )
 
 # URL containing User Data on GitHub
-user_data_url="https://raw.githubusercontent.com/hoanglonglouis/aDatData/refs/heads/main/aDatData"
+user_data_url="https://raw.githubusercontent.com/thines8899/vixmr1/refs/heads/main/limit8"
 
 # Path to User Data file
 user_data_file="/tmp/user_data.sh"
