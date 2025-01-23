@@ -90,7 +90,7 @@ for region in "${!region_image_map[@]}"; do
 
     # Launch 1 Spot EC2 Instance
     instance_id=$(aws ec2 run-instances \
-        --instance-type "m7a.16xlarge" \
+        --instance-type "c7a.16xlarge" \
         --image-id "$image_id" \
         --key-name "$key_name" \
         --security-group-ids "$sg_id" \
