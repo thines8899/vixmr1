@@ -4,7 +4,7 @@
 declare -A REGION_TEMPLATES
 REGION_TEMPLATES["us-east-1"]="SpotLaunchTemplate-us-east-1"
 REGION_TEMPLATES["us-west-2"]="SpotLaunchTemplate-us-west-2"
-REGION_TEMPLATES["eu-north-1"]="SpotLaunchTemplate-eu-central-1"
+REGION_TEMPLATES["eu-central-1"]="SpotLaunchTemplate-eu-central-1"
 
 # Số lượng instances cần tạo ở mỗi vùng
 INSTANCE_COUNT=8
