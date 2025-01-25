@@ -27,4 +27,3 @@ for REGION in "${!REGION_TEMPLATES[@]}"; do
     fi
 done
 
-echo "All instances launched successfully!"
