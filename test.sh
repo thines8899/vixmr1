@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Khai báo các thông tin về Launch Template cho từng vùng
-declare -A LAUNCH_TEMPLATE_NAMES=(
+declare -A LAUNCH_TEMPLATE_NAMES=
   ["us-east-1"]="SpotLaunchTemplate-us-east-1"  # Tên Launch Template ở us-east-1
   ["us-west-2"]="SpotLaunchTemplate-us-west-2"  # Tên Launch Template ở us-west-2
   ["us-east-2"]="SpotLaunchTemplate-us-east-2"  # Tên Launch Template ở eu-north-1
-)
+
 
 INSTANCE_TYPE="c7a.2xlarge"  # Loại instance
 INSTANCE_COUNT=8  # Số lượng VPS muốn tạo trong mỗi vùng
