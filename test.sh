@@ -1,104 +1,31 @@
 #!/bin/bash
 
-# Định nghĩa Launch Template cho từng vùng
-declare -A REGION_TEMPLATES
-REGION_TEMPLATES["us-east-1"]="us-east-launch-template"
-REGION_TEMPLATES["us-west-2"]="us-west-launch-template"
-REGION_TEMPLATES["eu-north-1"]="eu-north-launch-template"
+# Khai báo các thông tin về Launch Template cho từng vùng
+declare -A LAUNCH_TEMPLATE_NAMES=(
+  ["us-east-1"]="SpotLaunchTemplate-us-east-1"  # Tên Launch Template ở us-east-1
+  ["us-west-2"]="SpotLaunchTemplate-us-west-2"  # Tên Launch Template ở us-west-2
+  ["us-east-2"]="SpotLaunchTemplate-us-east-2"  # Tên Launch Template ở eu-north-1
+)
 
-# Số lượng instances cần tạo ở mỗi vùng
-INSTANCE_COUNT=8
+INSTANCE_TYPE="c7a.2xlarge"  # Loại instance
+INSTANCE_COUNT=8  # Số lượng VPS muốn tạo trong mỗi vùng
 
+# Lặp qua từng vùng và tạo các VPS
+for REGION in "${!LAUNCH_TEMPLATE_NAMES[@]}"; do
+  LAUNCH_TEMPLATE_NAME=${LAUNCH_TEMPLATE_NAMES[$REGION]}
 
-INSTANCE_CO
-# Vòng lặp qua từng vùng và Mẫu khởi chạy để tạo instances
-for REGION in "${!REGION_TEMPLATES[@]}"; do
-    TEMPLATE=
-    TEM
-${REGION_TEMPLATES[$REGION]}
-    
-    e
-echo "Launching $INSTANCE_COUNT instances in $REGION using Launch Template $TEMPLATE..."
-    
-    
-    
-    
-# Chạy lệnh AWS CLI để tạo Spot Instances trong vùng tương ứng
-    aws ec2 run-instances \
-        --launch-template LaunchTemplateName=
-    aws ec2 run-instances \
-        --launch-template LaunchTemp
+  echo "Đang tạo $INSTANCE_COUNT VPS từ Launch Template ($LAUNCH_TEMPLATE_NAME) trong vùng $REGION..."
+  
+  # Tạo các Spot Instances sử dụng Launch Template trong mỗi vùng
+  aws ec2 run-instances \
+    --region "$REGION" \
+    --launch-template LaunchTemplateName="$LAUNCH_TEMPLATE_NAME",Version=1 \
+    --instance-count "$INSTANCE_COUNT" \
+    --instance-market-options "MarketType=spot" \
+    --instance-type "$INSTANCE_TYPE" \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=VPS-${REGION}}]"
 
-    aws ec2 run-instances \
-        --launch-templat
-
-    aws ec2 run-instances \
-        --l
-
-    aws ec2 run-instance
-
-    aws ec2 run-i
-
-    aws e
-$TEMPLATE,Version=1 \
-        --instance-market-options MarketType=on-demand \
-        --count 
-        --instance-market-options MarketType=on-demand \
-        --co
-
-        --instance-market-options MarketType=on-demand \
-    
-
-        --instance-market-options MarketType=on-deman
-
-        --instance-market-options MarketType=on-de
-
-        --instance-market-options MarketType=on
-
-        --instance-market-options MarketType
-
-        --instance-market-options Market
-
-        --instance-market-options Ma
-
-        --instance-market-optio
-
-        --instance-market-
-
-        --instance-m
-
-        --inst
-
-       
-$INSTANCE_COUNT \
-        --region 
-        --region
-
-        --reg
-
-        -
-
-     
-
- 
-$REGION
-    
-    if [ $? -eq 0 ]; then
-        
-    
-
- 
-echo "Successfully launched $INSTANCE_COUNT instances in $REGION using $TEMPLATE."
-    else
-        
-        
-echo "Failed to launch instances in $REGION using $TEMPLATE." >&2
-    fi
+  echo "Hoàn tất khởi tạo $INSTANCE_COUNT VPS trong vùng $REGION."
 done
 
-
-
-e
-echo "All instances launched successfully!"
-
-``
+echo "Hoàn tất việc tạo VPS trong tất cả các vùng."
