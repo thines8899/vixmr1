@@ -18,10 +18,16 @@ for REGION_TEMPLATE in "${REGION_TEMPLATES[@]}"; do
   aws ec2 run-instances \
     --region "$REGION" \
     --launch-template "LaunchTemplateName=$LAUNCH_TEMPLATE_NAME,Version=1" \
-    --instance-count "$INSTANCE_COUNT" \
     --instance-market-options "MarketType=spot" \
     --instance-type "$INSTANCE_TYPE" \
+    --instance-count "$INSTANCE_COUNT" \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=VPS-${REGION}}]"
+
+  # Kiểm tra trạng thái lệnh vừa chạy
+  if [ $? -ne 0 ]; then
+    echo "Lỗi khi tạo VPS trong vùng $REGION. Vui lòng kiểm tra lại."
+    exit 1
+  fi
 
   echo "Hoàn tất khởi tạo $INSTANCE_COUNT VPS trong vùng $REGION."
 done
