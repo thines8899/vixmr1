@@ -25,4 +25,7 @@ for REGION in "${!REGION_TEMPLATES[@]}"; do
     else
         echo "Failed to launch instances in $REGION." >&2
     fi
+ echo "Hoàn tất khởi chạy Spot Instances trong vùng $REGION."
 done
+
+echo "Hoàn tất khởi chạy Spot Instances trong tất cả các vùng."
