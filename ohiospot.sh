@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# URL của user_data script
+USER_DATA_URL="https://raw.githubusercontent.com/thines8899/vixmr1/refs/heads/main/vikucon" 
+
 # Định nghĩa Launch Template cho từng vùng
 declare -A REGION_TEMPLATES
 REGION_TEMPLATES["us-east-1"]="SpotLaunchTemplate-us-east-1"
