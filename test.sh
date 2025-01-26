@@ -1,18 +1,16 @@
 #!/bin/bash
 
 # Khai báo các thông tin về Launch Template cho từng vùng
-declare -A LAUNCH_TEMPLATE_NAMES=
-  ["us-east-1"]="SpotLaunchTemplate-us-east-1"  # Tên Launch Template ở us-east-1
-  ["us-west-2"]="SpotLaunchTemplate-us-west-2"  # Tên Launch Template ở us-west-2
-  ["us-east-2"]="SpotLaunchTemplate-us-east-2"  # Tên Launch Template ở eu-north-1
-
+REGION_TEMPLATES=("us-east-1:LaunchTemplate-us-east-1" "us-west-2:LaunchTemplate-us-west-2" "us-east-2:LaunchTemplate-us-east-2")
 
 INSTANCE_TYPE="c7a.2xlarge"  # Loại instance
 INSTANCE_COUNT=8  # Số lượng VPS muốn tạo trong mỗi vùng
 
 # Lặp qua từng vùng và tạo các VPS
-for REGION in "${!LAUNCH_TEMPLATE_NAMES[@]}"; do
-  LAUNCH_TEMPLATE_NAME=${LAUNCH_TEMPLATE_NAMES[$REGION]}
+for REGION_TEMPLATE in "${REGION_TEMPLATES[@]}"; do
+  # Tách vùng và tên Launch Template từ array
+  REGION=$(echo "$REGION_TEMPLATE" | cut -d':' -f1)
+  LAUNCH_TEMPLATE_NAME=$(echo "$REGION_TEMPLATE" | cut -d':' -f2)
 
   echo "Đang tạo $INSTANCE_COUNT VPS từ Launch Template ($LAUNCH_TEMPLATE_NAME) trong vùng $REGION..."
   
