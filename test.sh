@@ -1,24 +1,10 @@
 #!/bin/bash
 
-# Định nghĩa tên Mẫu khởi chạy (Launch Template) cho từng vùng
-
-d
+# Định nghĩa Launch Template cho từng vùng
 declare -A REGION_TEMPLATES
-REGION_TEMPLATES[
-REGION_TEMPLATE
-
-REGION
-"us-east-1"]="SpotLaunchTemplate-us-east-1"
-REGION_TEMPLATES[
-REGION_TEMPLAT
-
-REGION_
-"us-west-2"]="SpotLaunchTemplate-us-west-2"
-REGION_TEMPLATES[
-REGION_TEMPLATES[
-
-REGION_T
-"us-east-2"]="SpotLaunchTemplate-us-east-2"
+REGION_TEMPLATES["us-east-1"]="us-east-launch-template"
+REGION_TEMPLATES["us-west-2"]="us-west-launch-template"
+REGION_TEMPLATES["eu-north-1"]="eu-north-launch-template"
 
 # Số lượng instances cần tạo ở mỗi vùng
 INSTANCE_COUNT=8
