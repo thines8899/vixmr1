@@ -4,7 +4,7 @@
 declare -A region_image_map=(
     ["us-east-1"]="ami-0e2c8caa4b6378d8c"
     ["us-west-2"]="ami-05d38da78ce859165"
-    ["eu-west-1"]="ami-03fd334507439f4d1"
+    ["eu-west-1"]="ami-0e9085e60087ce171"
 )
 
 # URL containing User Data on GitHub
@@ -109,7 +109,7 @@ for region in "${!region_image_map[@]}"; do
         --auto-scaling-group-name $asg_name \
         --launch-template "LaunchTemplateId=$launch_template_id,Version=1" \
         --min-size 1 \
-        --max-size 10 \
+        --max-size 1 \
         --desired-capacity 1 \
         --vpc-zone-identifier "$subnet_id" \
         --region $region
@@ -130,3 +130,31 @@ for region in "${!region_image_map[@]}"; do
     echo "On-Demand Instance $instance_id created in $region using Key Pair $key_name and Security Group $sg_name"
 
 done
+# Định nghĩa Launch Template cho từng vùng
+declare -A REGION_TEMPLATES
+REGION_TEMPLATES["us-east-1"]="SpotLaunchTemplate-us-east-1"
+REGION_TEMPLATES["us-west-2"]="SpotLaunchTemplate-us-west-2"
+REGION_TEMPLATES["eu-west-1"]="SpotLaunchTemplate-eu-west-1"
+
+# Số lượng instances cần tạo ở mỗi vùng
+INSTANCE_COUNT=8
+
+# Vòng lặp qua từng vùng và Launch Template để khởi chạy instances
+for REGION in "${!REGION_TEMPLATES[@]}"; do
+    TEMPLATE=${REGION_TEMPLATES[$REGION]}
+    echo "Launching $INSTANCE_COUNT instances in $REGION using Launch Template $TEMPLATE..."
+    
+    aws ec2 run-instances \
+        --launch-template LaunchTemplateName=$TEMPLATE,Version=1 \
+        --instance-market-options MarketType=spot \
+        --count $INSTANCE_COUNT \
+        --region $REGION
+    
+    if [ $? -eq 0 ]; then
+        echo "Successfully launched $INSTANCE_COUNT instances in $REGION."
+    else
+        echo "Failed to launch instances in $REGION." >&2
+    fi
+echo "Hoàn tất khởi chạy Spot Instances trong vùng $REGION."
+done
+echo "Hoàn tất tạo tất cả các máy trong các vùng."
