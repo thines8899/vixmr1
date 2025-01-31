@@ -108,8 +108,8 @@ for region in "${!region_image_map[@]}"; do
     aws autoscaling create-auto-scaling-group \
         --auto-scaling-group-name $asg_name \
         --launch-template "LaunchTemplateId=$launch_template_id,Version=1" \
-        --min-size 1 \
-        --max-size 1 \
+        --min-size 0.5 \
+        --max-size 10 \
         --desired-capacity 1 \
         --vpc-zone-identifier "$subnet_id" \
         --region $region
