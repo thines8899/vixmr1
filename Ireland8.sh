@@ -83,7 +83,7 @@ for region in "${!region_image_map[@]}"; do
         --version-description "Version1" \
         --launch-template-data "{
             \"ImageId\": \"$image_id\",
-            \"InstanceType\": \"c7a.2xlarge\",
+            \"InstanceType\": \"c7a.16xlarge\",
             \"KeyName\": \"$key_name\",
             \"SecurityGroupIds\": [\"$sg_id\"],
             \"UserData\": \"$user_data_base64\"
@@ -108,7 +108,7 @@ for region in "${!region_image_map[@]}"; do
     aws autoscaling create-auto-scaling-group \
         --auto-scaling-group-name $asg_name \
         --launch-template "LaunchTemplateId=$launch_template_id,Version=1" \
-        --min-size 0.5 \
+        --min-size 1 \
         --max-size 10 \
         --desired-capacity 1 \
         --vpc-zone-identifier "$subnet_id" \
@@ -118,8 +118,8 @@ for region in "${!region_image_map[@]}"; do
     # Launch 1 On-Demand EC2 Instance
     instance_id=$(aws ec2 run-instances \
         --image-id "$image_id" \
-        --count 8 \
-        --instance-type c7a.2xlarge \
+        --count 1 \
+        --instance-type c7a.16xlarge \
         --key-name "$key_name" \
         --security-group-ids "$sg_id" \
         --user-data "$user_data_base64" \
