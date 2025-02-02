@@ -7,7 +7,7 @@ REGION_TEMPLATES["us-west-2"]="SpotLaunchTemplate-us-west-2"
 REGION_TEMPLATES["eu-west-1"]="SpotLaunchTemplate-eu-west-1"
 
 # Số lượng instances cần tạo ở mỗi vùng
-INSTANCE_COUNT=8
+INSTANCE_COUNT=3
 
 # Vòng lặp qua từng vùng và Launch Template để khởi chạy instances
 for REGION in "${!REGION_TEMPLATES[@]}"; do
