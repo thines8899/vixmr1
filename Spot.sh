@@ -19,7 +19,17 @@ for REGION in "${!REGION_TEMPLATES[@]}"; do
         --instance-market-options MarketType=spot \
         --count $INSTANCE_COUNT \
         --region $REGION
-    
+    aws ec2 run-instances \
+        --launch-template LaunchTemplateName=$TEMPLATE,Version=1 \
+        --instance-market-options MarketType=spot \
+        --count $INSTANCE_COUNT \
+        --region $REGION
+    aws ec2 run-instances \
+        --launch-template LaunchTemplateName=$TEMPLATE,Version=1 \
+        --instance-market-options MarketType=spot \
+        --count $INSTANCE_COUNT \
+        --region $REGION
+        
     if [ $? -eq 0 ]; then
         echo "Successfully launched $INSTANCE_COUNT instances in $REGION."
     else
